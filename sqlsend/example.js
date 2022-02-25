@@ -15,7 +15,8 @@ var connection = mysql.createConnection(
 
 // all usuarios
 router.get('/', (req, res) => {
-    const sql = 'SELECT * FROM usuarios';
+
+    const sql = 'SELECT * FROM retrosporemail';
   
     connection.query(sql, (error, results) => {
       if (error) throw error;
@@ -26,24 +27,30 @@ router.get('/', (req, res) => {
       }
     });
   });
-  
-  router.post('/', (req, res) => {
-    const sql = 'INSERT INTO usuarios SET ?';
-  
-    const customerObj = {
-      name: req.body.name,
-      lastName: req.body.lastName
-    };
-  
-    connection.query(sql, customerObj, error => {
-      if (error) throw error;
-      res.send('Customer created!');
-    });
+
+let  crear = (req,res)=>{   const sql = 'INSERT INTO retrosporemail SET ?';
+const fecha=new Date;
+const customerObj = {
+  nombre: req.body.name,
+  apellido: req.body.lastName,
+  correo:req.body.email,
+  comentario: req.body.conten,
+  fecha:fecha
+};
+console.log(customerObj)
+
+connection.query(sql, customerObj, error => {
+  if (error) throw error;
+  res.send('Customer created!');
+});}
+
+router.post('/', (req, res) => {
+ crear(req,res)
   });
   
-  router.get('/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const { id } = req.params;
-    const sql = `SELECT * FROM usuarios WHERE idusuarios = ${id}`;
+    const sql = `SELECT * FROM retrosporemail WHERE idusuarios = ${id}`;
     connection.query(sql, (error, result) => {
       if (error) throw error;
   
@@ -53,12 +60,13 @@ router.get('/', (req, res) => {
         res.send('Not result');
       }
     });
+  
   });
 
-  router.put('/:id', (req, res) => {
+router.put('/:id', (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
-    const sql = `UPDATE usuarios SET name = '${name}'WHERE idusuarios =${id}`;
+    const sql = `UPDATE retrosporemail SET name = '${name}'WHERE idusuarios =${id}`;
   
     connection.query(sql, error => {
       if (error) throw error;
@@ -66,9 +74,9 @@ router.get('/', (req, res) => {
     });
   });
   
-  router.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     const { id } = req.params;
-    const sql = `DELETE FROM usuarios WHERE idusuarios = ${id}`;
+    const sql = `DELETE FROM retrosporemail WHERE idusuarios = ${id}`;
   
     connection.query(sql, error => {
       if (error) throw error;

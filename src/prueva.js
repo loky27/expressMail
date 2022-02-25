@@ -1,7 +1,9 @@
 //Requerimos el paquete
 var nodemailer = require('nodemailer');
+var template = require('./generador');
+var contenHtml=template.template;
 
-function main(info){
+function main(info,res){
   //Creamos el objeto de transporte
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -11,36 +13,31 @@ var transporter = nodemailer.createTransport({
   }
 });
 
+var text =contenHtml(info)
+
+
 var mensaje = `${info.message}`;
+
 
 var mailOptions = {
   from: 'mentoritosno.1@gmail.com',
   to: `${info.email}`,
-  subject: 'Asunto Del Correo',
-  text: mensaje
+  subject: info.subject,
+  text: mensaje,
+  html:text
 };
 transporter.sendMail(mailOptions, function(error, info){
   if (error) {
-    console.log(error);
+    res.send(error);
   } else {
-    console.log('Email enviado: ' + info.response);
+    res.send('Email enviado: ' + info.response);
   }
 });
 
 
 
 }
-let myPromise = new Promise(function(myResolve, myReject) {
-  let x = 0;
 
-// The producing code (this may take some time)
-
-  if (x == 0) {
-    myResolve("OK");
-  } else {
-    myReject("Error");
-  }
-});
 
 module.exports = {main:main}
 
