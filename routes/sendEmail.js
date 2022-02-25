@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
     "name":nane,
     "lastName":lastName,
     "email":'mentoritosno.1@gmail.com',
-    "message":"El comentario:"+message+"\n su email es "+email,
+    "message":"El comentario:"+message+"\n\n\n Su email es: "+email,
     "subject":"mensaje de "+nane+" "+lastName+" desde la pagina",
     "title":"opinion de "+nane+" "+lastName
   };
