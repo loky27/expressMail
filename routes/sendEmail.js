@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var mail = require('../src/prueva');
+var mail = require('../src/mail');
 var sendMail=mail.main; 
 /* GET users listing. */
 router.post('/', function(req, res, next) {
@@ -11,20 +11,21 @@ router.post('/', function(req, res, next) {
     "name":nane,
     "lastName":lastName,
     "email":'mentoritosno.1@gmail.com',
-    "message":message,
-    "subject":"mensaje de"+nane+" "+lastName+" desde la pagina"
+    "message":"El comentario:"+message+"\n su email es "+email,
+    "subject":"mensaje de "+nane+" "+lastName+" desde la pagina",
+    "title":"opinion de "+nane+" "+lastName
   };
   
     let respuesta={
     "name":nane,
     "lastName":lastName,
     "email":email,
-    "message":nane,
-    "subject":"Equipo de mentoritos"
-  
+    "message":"Tu opinion es muy importante para el equipo de mentoritos",
+    "subject":"Equipo de mentoritos",
+    "title":"Muchas gracias "+nane+" "+lastName
   };
   
-  //sendMail(mentorito,res);
+  sendMail(mentorito,res);
   sendMail(respuesta,res);
 
   

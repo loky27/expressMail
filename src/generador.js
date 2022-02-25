@@ -1,5 +1,4 @@
 //Requerimos el paquete
-var nodemailer = require('nodemailer');
 const pug = require('pug');
 
 function template(info){
@@ -8,9 +7,8 @@ const compiledFunction = pug.compileFile('./views/mail.pug');
 
 // Render a set of data
 const text=compiledFunction({
-  name:info.name,
-  lastName:info.lastName,
-  message:info.message
+  message:info.message,
+  title:info.title
 })
 return text
 
