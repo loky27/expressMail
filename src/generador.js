@@ -3,12 +3,11 @@ const pug = require('pug');
 
 function template(info){
   // Compile the source code
-const compiledFunction = pug.compileFile('./views/mail.pug');
+const compiledFunction = pug.compileFile(info.path);
 
 // Render a set of data
 const text=compiledFunction({
-  message:info.message,
-  title:info.title
+ info:info                                        
 })
 return text
 

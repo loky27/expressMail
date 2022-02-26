@@ -5,37 +5,50 @@ var contenHtml=template.template;
 
 function main(info,res){
   //Creamos el objeto de transporte
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'mentoritosno.1@gmail.com',
-    pass: 'qhczwtjoyqbhxtdo'
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'mentoritosno.1@gmail.com',
+      pass: 'qhczwtjoyqbhxtdo'
+    }
+  });
+  if(info.email){
+       
+    var text =contenHtml(info)
+    
+    var mailOptions = {
+      from: 'mentoritosno.1@gmail.com',
+      to: `${info.email}`,
+      subject: info.subject,
+      html:text
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        res.send(error);
+      } else {
+        res.send('Email enviado: ' + info.response);
+        
+      }
+    });
+    
+  }else{
+      
+    var mailOptions = {
+      from: 'mentoritosno.1@gmail.com',
+      to: ``,
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        res.status(error.status || 400);
+        res.send("un campo se encuentra vacio");
+      } else {
+        res.send('Email enviado: ' + info.response);
+        
+      }
+    });
+    
+    
   }
-});
-
-var text =contenHtml(info)
-
-
-var mensaje = `${info.message}`;
-
-
-var mailOptions = {
-  from: 'mentoritosno.1@gmail.com',
-  to: `${info.email}`,
-  subject: info.subject,
-  text: mensaje,
-  html:text
-};
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    res.send(error);
-  } else {
-    res.send('Email enviado: ' + info.response);
-  }
-});
-
-
-
 }
 
 

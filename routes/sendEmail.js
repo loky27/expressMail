@@ -2,33 +2,34 @@ var express = require('express');
 var router = express.Router();
 var mail = require('../src/mail');
 var sendMail=mail.main; 
-/* GET users listing. */
+/* POST SendMail listing. */
 router.post('/', function(req, res, next) {
   
   const {nane,lastName,email,message}=req.body;
   
-  var mentorito={
+  let mentorito={
     "name":nane,
     "lastName":lastName,
     "email":'mentoritosno.1@gmail.com',
-    "message":"El comentario:"+message+"\n\n\n Su email es: "+email,
     "subject":"mensaje de "+nane+" "+lastName+" desde la pagina",
-    "title":"opinion de "+nane+" "+lastName
-  };
-  
-    let respuesta={
-    "name":nane,
-    "lastName":lastName,
-    "email":email,
-    "message":"Tu opinion es muy importante para el equipo de mentoritos",
-    "subject":"Equipo de mentoritos",
-    "title":"Muchas gracias "+nane+" "+lastName
+    "path":'./views/mail.pug',
+    "title":"opinion de "+nane+" "+lastName,
+    "message":"El comentario:"+message+"\n\n\n Su email es: "+email,
   };
   
   sendMail(mentorito,res);
-  sendMail(respuesta,res);
-
   
+  let respuesta={
+    "name":nane,
+    "lastName":lastName,
+    "email":email,
+    "subject":"Equipo de mentoritos",
+    "path":'./views/mail.pug',
+    "title":"Muchas gracias "+nane+" "+lastName,
+    "message":"Tu opinion es muy importante para el equipo de mentoritos",
+  };
+  
+  sendMail(respuesta,res);
 
 });
 
