@@ -13,8 +13,8 @@ router.post('/', function(req, res, next) {
     "email":'mentoritosno.1@gmail.com',
     "subject":"mensaje de "+nane+" "+lastName+" desde la pagina",
     "path":'./views/mail.pug',
-    "title":"opinion de "+nane+" "+lastName,
-    "message":"El comentario:"+message+"\n\n\n Su email es: "+email,
+    "title":"Opinión de "+nane+" "+lastName+".",
+    "message":"El comentario: "+message+".  |\n\n\n Su email es: "+email+".",
   };
   
   sendMail(mentorito,res);
@@ -25,8 +25,8 @@ router.post('/', function(req, res, next) {
     "email":email,
     "subject":"Equipo de mentoritos",
     "path":'./views/mail.pug',
-    "title":"Muchas gracias "+nane+" "+lastName,
-    "message":"Tu opinion es muy importante para el equipo de mentoritos",
+    "title":"Muchas gracias "+nane+" "+lastName+".",
+    "message":"Tu opinión es muy importante para el equipo de mentoritos.",
   };
   
   sendMail(respuesta,res);
